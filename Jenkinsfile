@@ -23,7 +23,8 @@ pipeline {
 
     stage('Mutation Tests: PIT') {
       steps {
-        sh "mvn org.pitest:pitest-maven:mutationCoverage"
+        // sh "mvn org.pitest:pitest-maven:mutationCoverage"
+        sh "mvn --add-opens java.base/java.lang=ALL-UNNAMED org.pitest:pitest-maven:mutationCoverage"
       }
       post {
         always {
