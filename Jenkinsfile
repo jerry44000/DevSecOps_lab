@@ -41,7 +41,7 @@ pipeline {
 
     stage(' Trivy Vulnerability Scan: Docker') {
       steps {
-        sh: "bash trivy-docker-image-scan.sh"
+        sh "bash trivy-docker-image-scan.sh"
       }
     }
 
