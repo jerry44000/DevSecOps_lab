@@ -13,22 +13,11 @@ pipeline {
       steps {
         sh "mvn test"
       }
-      post {
-        always {
-          junit 'target/surefire-reports/*.xml'
-          jacoco execPattern: 'target/jacoco.exec'
-        }
-      }
     }
 
     stage('Mutation Tests: PIT') {
       steps {
         sh "mvn org.pitest:pitest-maven:mutationCoverage"
-      }
-      post {
-        always {
-          pitmutation mutationStatsFile: '**/target/pit-reports/**/mutations.xml'
-        }
       }
     }
 
@@ -39,8 +28,7 @@ pipeline {
       steps {  
           withSonarQubeEnv('SonarQube') {
 
-          sh "mvn sonar:sonar  -Dsonar.projectKey=numeric-application  -Dsonar.host.url=http://devsecops-demodns.eastus.cloudapp.azure.com:9000  -Dsonar.login=${SONARQUBE_TOKEN}"    
-        
+          sh "mvn sonar:sonar  -Dsonar.projectKey=numeric-application  -Dsonar.host.url=http://devsecops-demodns.eastus.cloudapp.azure.com:9000  -Dsonar.login=${SONARQUBE_TOKEN}"        
         }
         timeout(time: 2, unit: 'MINUTES') {
           script {
@@ -69,5 +57,21 @@ pipeline {
         }
       }
     }
+  }
+
+  post {
+    always {
+      junit 'target/surefire-reports/*.xml'
+      jacoco execPattern: 'target/jacoco.exec'
+      pitmutation mutationStatsFile: '**/target/pit-reports/**/mutations.xml'
+    }
+
+    // success {
+
+    // }
+
+    // failure {
+
+    // }
   }
 }
