@@ -46,7 +46,7 @@ deny[msg] {
     some i
     input[i].Cmd == "run"
     val := concat(" ", input[i].Value)
-    regex.matches("(curl|wget)[^|^>]*[|>]", lower(val))
+    re_match("(curl|wget)[^|^>]*[|>]", lower(val))
     msg = sprintf("Line %d: Avoid curl bashing", [i+1])
 }
 
@@ -55,9 +55,10 @@ warn[msg] {
     some i
     input[i].Cmd == "run"
     val := concat(" ", input[i].Value)
-    regex.matches(".*?(apk|yum|dnf|apt|pip).+?(install|[dist-|check-|group]?up[grade|date]).*", lower(val))
+    re_match(".*?(apk|yum|dnf|apt|pip).+?(install|[dist-|check-|group]?up[grade|date]).*", lower(val))
     msg = sprintf("Line: %d: Do not upgrade your system packages: %s", [i+1, val])
 }
+
 
 # Do not use ADD if possible
 deny[msg] {
