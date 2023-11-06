@@ -38,7 +38,6 @@ pipeline {
     }
   }
 
-
     stage('Vulnerability Scan - Docker') {
       steps {
         parallel(
@@ -52,7 +51,6 @@ pipeline {
       }
     }
 
-
     stage('Docker Build and Push') {
       steps {
         withDockerRegistry([credentialsId: "docker-hub", url: ""]) {
@@ -60,6 +58,12 @@ pipeline {
           sh 'sudo docker build -t shaykube/numeric-app:""$GIT_COMMIT"" .'
           sh 'docker push shaykube/numeric-app:""$GIT_COMMIT""'
         }
+      }
+    }
+
+    stage('Vulnerability Scan - Kubernetes') {
+      steps {
+        sh 'docker run --rm -v $(pwd):/project openpolicyagent/conftest test --policy opa-k8s-security.rego k8s_deployment_service.yaml'
       }
     }
     
