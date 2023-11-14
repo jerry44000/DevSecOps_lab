@@ -14,11 +14,17 @@ spec:
     metadata:
       labels:
         app: devsecops
-    spec:
+    spec: 
+      volumes:
+      - name: vol
+        emptyDir: {}
       serviceAccountName: default
       containers:
       - image: replace
         name: devsecops-container
+        volumeMounts:
+        - mountPath: /tmp
+          name: vol
         securityContext:
           runAsNonRoot: true
           runAsUser: 100
