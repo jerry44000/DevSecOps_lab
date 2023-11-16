@@ -18,7 +18,7 @@
 
     <properties>
         <java.version>1.8</java.version>
-        <junit.version>4.13.2</junit.version>
+        <junit.version>5.7.0</junit.version>
         <maven.compiler.plugin.version>3.8.1</maven.compiler.plugin.version>
         <maven.surefire.plugin.version>2.22.2</maven.surefire.plugin.version>
         <jacoco.version>0.8.5</jacoco.version>
@@ -37,26 +37,42 @@
             <artifactId>spring-boot-starter</artifactId>
         </dependency>
 
-        <!-- JUnit 4 for testing -->
+        <!-- JUnit Jupiter (JUnit 5) for testing -->
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
             <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
 
-        <!-- Spring Boot Starter Test with exclusion of JUnit Jupiter (JUnit 5) -->
+        <!-- Mises à jour des dépendances pour résoudre les vulnérabilités -->
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.junit.jupiter</groupId>
-                    <artifactId>junit-jupiter</artifactId>
-                </exclusion>
-            </exclusions>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.13.4.1</version>
         </dependency>
+        <dependency>
+            <groupId>org.apache.tomcat.embed</groupId>
+            <artifactId>tomcat-embed-core</artifactId>
+            <version>9.0.69</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+            <version>5.3.19</version>
+        </dependency>
+        <dependency>
+            <groupId>org.yaml</groupId>
+            <artifactId>snakeyaml</artifactId>
+            <version>1.32</version>
+        </dependency>
+        <!-- Ajouter les autres dépendances ici si nécessaire -->
     </dependencies>
 
     <build>
@@ -78,11 +94,16 @@
                 </configuration>
             </plugin>
 
-            <!-- Maven Surefire Plugin for JUnit 4 testing -->
+            <!-- Maven Surefire Plugin for JUnit 5 testing -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${maven.surefire.plugin.version}</version>
+                <configuration>
+                    <includes>
+                        <include>**/*Tests.java</include>
+                    </includes>
+                </configuration>
             </plugin>
 
             <!-- Jacoco Plugin for code coverage -->
