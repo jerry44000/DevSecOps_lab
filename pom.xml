@@ -6,14 +6,13 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <!-- Mise à jour vers une version plus récente pour corriger les vulnérabilités -->
-        <version>2.2.11.RELEASE</version>
+        <version>2.5.12</version> <!-- Mise à jour pour corriger les vulnérabilités liées à Spring Boot -->
         <relativePath /> <!-- lookup parent from repository -->
     </parent>
 
     <groupId>com.devsecops</groupId>
     <artifactId>numeric</artifactId>
-    <version>0.0.1</version>
+    <version>0.0.1-SNAPSHOT</version>
     <name>numeric</name>
     <description>Demo for DevSecOps</description>
 
@@ -21,10 +20,14 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
+        <logback.version>1.2.9</logback.version> <!-- Mise à jour de Logback -->
+        <jackson.version>2.12.7.1</jackson.version> <!-- Mise à jour de Jackson -->
+        <log4j.version>2.17.0</log4j.version> <!-- Mise à jour de Log4j -->
+        <snakeyaml.version>1.26</snakeyaml.version> <!-- Mise à jour de Snakeyaml -->
+        <tomcat.version>9.0.40</tomcat.version> <!-- Mise à jour de Tomcat Embed -->
     </properties>
 
     <dependencies>
-        <!-- Mise à jour des dépendances Spring Boot -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -40,6 +43,34 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+
+        <!-- Ajout des dépendances mises à jour -->
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-core</artifactId>
+            <version>${logback.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-api</artifactId>
+            <version>${log4j.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.yaml</groupId>
+            <artifactId>snakeyaml</artifactId>
+            <version>${snakeyaml.version}</version>
+        </dependency>
+
+        <!-- Dépendances spécifiques pour Tomcat Embed si nécessaire -->
+        <!-- ... -->
     </dependencies>
 
     <build>
@@ -48,6 +79,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
+
             <!-- Jacoco Plugin -->
             <plugin>
                 <groupId>org.jacoco</groupId>
@@ -68,6 +100,7 @@
                     </execution>
                 </executions>
             </plugin>
+
             <!-- PITest Mutation Plugin -->
             <plugin>
                 <groupId>org.pitest</groupId>
