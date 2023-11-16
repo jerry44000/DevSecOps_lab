@@ -100,17 +100,11 @@
             </plugin>
 
             <!-- PITest Mutation Testing Plugin -->
+            <!-- Removed the pitest-junit5-plugin dependency as it's not compatible with JUnit 4 -->
             <plugin>
                 <groupId>org.pitest</groupId>
                 <artifactId>pitest-maven</artifactId>
                 <version>${pitest.version}</version>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.pitest</groupId>
-                        <artifactId>pitest-junit5-plugin</artifactId>
-                        <version>0.12</version>
-                    </dependency>
-                </dependencies>
                 <configuration>
                     <mutationThreshold>70</mutationThreshold>
                     <outputFormats>
