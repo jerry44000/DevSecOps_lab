@@ -118,13 +118,13 @@ stage('Test Service Connectivity') {
       }
     }
 
-    stage('Integration Tests: DEV') {
+   stage('Integration Tests: DEV') {
       steps {
         script {
           try {
             withKubeConfig([credentialsId: 'kubeconfig']) {
               sh "bash integration-test.sh"
-            }          
+            }
           } catch (e) {
             withKubeConfig([credentialsId: 'kubeconfig']) {
               sh "kubectl -n default rollout undo deploy ${deploymentName}"
@@ -134,6 +134,7 @@ stage('Test Service Connectivity') {
         }
       }
     }
+
   }
 
   post {
