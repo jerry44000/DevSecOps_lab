@@ -87,6 +87,20 @@ pipeline {
     }
     
 
+    // Nouvelle étape pour tester la connectivité réseau de base
+stage('Test Network Connectivity') {
+    steps {
+        sh 'curl -I https://www.google.com'
+    }
+}
+
+// Nouvelle étape pour tester la connectivité vers votre service Kubernetes
+stage('Test Service Connectivity') {
+    steps {
+        sh 'curl -I http://devsecops-demodns.eastus.cloudapp.azure.com:30904/increment/99'
+    }
+}
+
     stage('Kubernetes Deployment: DEV') {
       steps {
         parallel(
