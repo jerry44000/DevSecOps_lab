@@ -14,8 +14,8 @@ FULL_URL="http://devsecops-demodns.eastus.cloudapp.azure.com:$PORT/increment/99"
 echo "Full URL: $FULL_URL"
 
 # Envoie une requête HTTP à l'application et récupère la réponse et le code de statut HTTP.
-response=$(curl -s $FULL_URL)
-http_code=$(curl -s -o /dev/null -w "%{http_code}" $FULL_URL)
+response=$(curl -s -v $FULL_URL)
+http_code=$(curl -s -o /dev/null -w "%{http_code}" -v $FULL_URL)
 
 # Affiche la réponse et le code de statut HTTP pour le débogage.
 echo "Response: $response"
