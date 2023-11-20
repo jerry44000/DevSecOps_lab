@@ -4,7 +4,7 @@
 sleep 5s
 
 # Récupère le port NodePort du service Kubernetes spécifié.
-PORT=$(kubectl -n default get svc ${serviceName} -o jsonpath='{.spec.ports[0].nodePort}')
+PORT=$(kubectl -n default get svc $serviceName -o jsonpath='{.spec.ports[0].nodePort}')
 
 # Affiche la valeur du port récupéré.
 echo "Port: $PORT"
