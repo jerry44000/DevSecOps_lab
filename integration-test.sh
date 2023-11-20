@@ -11,8 +11,8 @@ PORT=$(kubectl -n default get svc ${serviceName} -o json | jq .spec.ports[].node
 # Affiche la valeur du port récupéré.
 echo $PORT
 
-# Construit et affiche l'URL complète pour accéder à l'application. Variables d'env dans le Jenkinsfile.
-echo $applicationURL:$PORT/$applicationURI
+# Corrige la construction de l'URL pour supprimer la double barre oblique.
+echo $applicationURL:$PORT$applicationURI
 
 # Vérifie si la variable PORT n'est pas vide.
 if [[ ! -z "$PORT" ]];
@@ -23,6 +23,10 @@ then
 
     # Envoie une requête HTTP à l'application et récupère seulement le code de statut HTTP.
     http_code=$(curl -s -o /dev/null -w "%{http_code}" $applicationURL:$PORT$applicationURI)
+
+    # Affiche la réponse et le code de statut HTTP pour le débogage.
+    echo "Response: $response"
+    echo "HTTP Code: $http_code"
 
     # Vérifie si la réponse de l'application est égale à 100.
     if [[ "$response" == 100 ]];
